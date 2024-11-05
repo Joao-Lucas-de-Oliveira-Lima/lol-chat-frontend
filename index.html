@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en-US">
 
 <head>
   <meta charset="UTF-8">
@@ -8,7 +8,7 @@
 
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0/css/bootstrap.min.css'>
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css'>
-  <link rel="stylesheet" href="./src/style.css">
+  <link rel="stylesheet" href="./src/styles/style.css">
 
   <link data-react-helmet="true" rel="icon" href="/assets/icone.ico">
 
@@ -115,16 +115,16 @@
 
 
     <div class="avatar-box">
-      <div id="avatar" data-id="1" class="big-picture w-80 wiggle"></div>
+      <div id="avatar" class="big-picture w-80 wiggle"></div>
 
-
-      <p class="text-reponse"></p>
+      <div class="response-box"><p class="text-reponse"></p></div>
+     
 
 
       <div class="input-group mb-3 mt-3" style="position: absolute; bottom:0; width: 40rem;">
         <input id="text-request" style="background-color: #D1D1D1;" type="text" class="form-control"
-          placeholder="Pergunte-me algo" aria-label="Pergunte-me Algo" aria-describedby="btn-get-api">
-        <button class="btn btn-outline-secondary" type="button" id="btn-get-api">
+          placeholder="Ask me something" aria-label="Pergunte-me Algo" aria-describedby="btn-get-api">
+        <button class="btn btn-outline-secondary" type="button" id="btn-get-api" onclick="fetchAskChampion()">
           Perguntar
         </button>
       </div>
@@ -141,7 +141,7 @@
     <div id="carousel-cards-content" class="timeline-carousel__item-wrapper" data-js="timeline-carousel">
 
       <!--Timeline item-->
-      <div class="timeline-carousel__item">
+      <!-- <div class="timeline-carousel__item">
         <div class="timeline-carousel__image">
           <div class="media-wrapper media-wrapper--overlay"
             style="background: url('https://via.placeholder.com/550x320/171717/cccccc?text=550x320') center center; background-size:cover;">
@@ -153,9 +153,9 @@
           <p>Non odio euismod lacinia at. Egestas quis ipsum suspendisse ultrices gravida. Dui nunc mattis enim ut
             tellus elementum sagittis vitae. Lectus quam id leo in vitae turpis massa sed elementum. Ridiculus mus
             mauris vitae ultricies leo integer malesuada. Semper feugiat nibh sed pulvinar proin gravida hendrerit
-            lectus./p>
+            lectus.</p>
         </div>
-      </div>
+      </div> -->
       <!--/Timeline item-->
 
     </div>

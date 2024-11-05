@@ -1,3 +1,42 @@
+const routes = {
+  champions: `http://localhost:8080/champions`,
+  ask: `http://localhost:8080/champions/ask/{id}`,
+}
+
+const apiService = {
+  async getChampions(){
+    const route = routes.champions;
+    const response = await fetch(route);
+    return await response.json();
+  },
+  async postAskChampion(id, message){
+    const route = routes.ask.replace("{id}", id);
+    const options = {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({question: message})
+      
+    }
+    const response = await fetch(route, options);
+    return await response.json();
+  }
+}
+
+const state = {
+  values: {
+    champions: [],
+    idCurrentChampionSelected: "1"
+  },
+  views: {
+    carrousel: document.getElementById("carousel-cards-content"),
+    question: document.getElementById("text-request"),
+    response: document.querySelector(".text-reponse"),
+    avatar: document.getElementById("avatar")
+  }
+}
+
 async function loadCarrousel() {
   const caroujs = (el) => {
     return $("[data-js=" + el + "]");
@@ -28,4 +67,78 @@ async function loadCarrousel() {
   });
 }
 
-loadCarrousel();
+async function loadChampions(){
+  state.values.champions = await apiService.getChampions();
+}
+
+async function renderChampions(){
+  const champions = state.values.champions;
+  const elements = champions.map(champion => `
+    <div class="timeline-carousel__item", onclick="onChangeChampionSelected(${champion.id}, '${champion.imageUrl}')">
+        <div class="timeline-carousel__image">
+          <div class="media-wrapper media-wrapper--overlay"
+            style="background: url(${champion.imageUrl}) center center; background-size:cover;">
+          </div>
+        </div>
+        <div class="timeline-carousel__item-inner">
+          <span class="name">${champion.name}</span>
+          <span class="role">${champion.title}</span>
+          <p>${champion.lore}</p>
+        </div>
+      </div>`
+  )
+  const carrousel = state.views.carrousel;
+  carrousel.innerHTML = elements.join(" "); 
+}
+
+async function onChangeChampionSelected(id, image_url){
+  state.values.idCurrentChampionSelected = id
+  state.views.avatar.style.backgroundImage = `url(${image_url})`
+  await resetForms();
+}
+
+async function renderAvatarBoxWhenStartingPageForTheFirstTime() {
+  state.views.avatar.style.backgroundImage = `url(${state.values.champions[0].imageUrl})`
+  await resetForms();
+}
+
+async function getRandomQuotes(){
+  const quotes = [
+    "Ah, a question... Let's see what you have to say.",
+    "I'm listening... Ask what you want to know.",
+    "Ready to hear your next move. What will it be?",
+    "Curious? Let me illuminate your thoughts.",
+    "Every question deserves an answer. I'm waiting.",
+    "Come on, ask your question. Time waits for no one.",
+    "Questions are the beginning of great revelations.",
+    "Tell me what you want to know. I'm prepared.",
+    "Interested in answers? I can hardly wait to start.",
+    "Your doubt will be clarified... you just need to ask.",
+  ]
+  const selectedQuote = quotes[Math.floor(Math.random() * quotes.length)];
+  return selectedQuote;
+}
+
+async function resetForms(){
+  state.views.question.value = "";
+  const quote = await getRandomQuotes();
+  state.views.response.textContent = quote;
+}
+
+async function fetchAskChampion(){
+  document.body.style.cursor = "wait"
+  const id = state.values.idCurrentChampionSelected;
+  const question = state.views.question.value;
+  const result = await apiService.postAskChampion(id, question);
+  state.views.response.textContent = result.answer;
+  document.body.style.cursor = "default"
+}
+
+async function main(){
+  await loadChampions();
+  await renderAvatarBoxWhenStartingPageForTheFirstTime();
+  await renderChampions();
+  await loadCarrousel();
+}
+
+main();

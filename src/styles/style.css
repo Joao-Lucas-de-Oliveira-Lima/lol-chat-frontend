@@ -316,6 +316,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+ 
 }
 
 .big-picture {
@@ -328,4 +329,12 @@ body {
   background-image: url("https://via.placeholder.com/550x320/171717/cccccc?text=550x320");
   background-size: cover;
   background-position: top;
+}
+
+.response-box{
+  position: relative;
+  top: 20px;
+  max-height: 150px;
+  overflow: auto;
+  margin-bottom: 10px;
 }
