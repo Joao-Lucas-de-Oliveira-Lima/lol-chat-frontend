@@ -1,8 +1,6 @@
-//const API_URL = "http://localhost:8080/champions"
-
 const routes = {
-  champions: API_URL,
-  ask: $`{API_URL}/ask/{id}`,
+  champions: `http://localhost:8080/champions`,
+  ask: `http://localhost:8080/champions/ask/{id}`,
 }
 
 const apiService = {
