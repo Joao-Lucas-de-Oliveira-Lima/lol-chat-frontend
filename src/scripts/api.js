@@ -1,6 +1,6 @@
 const routes = {
-  champions: `http://localhost:8080/champions`,
-  ask: `http://localhost:8080/champions/ask/{id}`,
+  champions: `https://lol-chat-backend-spring.onrender.com/champions`,
+  ask: `https://lol-chat-backend-spring.onrender.com/champions/ask/{id}`,
 }
 
 const apiService = {
